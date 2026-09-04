@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Barbearia do Barba em Dracena-SP. Cortes, barba e um ambiente com personalidade.">
+<title>Barbearia do Barba</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --black:#0d0d0c;
+    --black-soft:#161513;
+    --paper:#efe9db;
+    --red:#d62828;
+    --red-dark:#a11f1f;
+    --mustard:#e5ab2e;
+    --line: rgba(239,233,219,0.16);
+    --line-paper: rgba(13,13,12,0.2);
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--black);
+    color:var(--paper);
+    font-family:'Space Mono', monospace;
+    font-size:15px;
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3{
+    font-family:'Anton', sans-serif;
+    font-weight:400;
+    text-transform:uppercase;
+    margin:0;
+    letter-spacing:0.01em;
+  }
+  a{color:inherit;}
+  img{max-width:100%; display:block;}
+  .wrap{
+    max-width:1080px;
+    margin:0 auto;
+    padding:0 26px;
+  }
+  .dots{
+    background-image:radial-gradient(rgba(239,233,219,0.14) 1px, transparent 1px);
+    background-size:7px 7px;
+  }
+  .dots-dark{
+    background-image:radial-gradient(rgba(13,13,12,0.16) 1px, transparent 1px);
+    background-size:7px 7px;
+  }
+  .placeholder{
+    border:2px dashed rgba(239,233,219,0.35);
+    background:repeating-linear-gradient(135deg, rgba(239,233,219,0.03) 0 12px, rgba(239,233,219,0.07) 12px 24px);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    color:rgba(239,233,219,0.55);
+    font-size:0.72rem;
+    letter-spacing:0.03em;
+    padding:14px;
+  }
+
+  /* header */
+  header{
+    position:sticky; top:0; z-index:50;
+    background:var(--black);
+    border-bottom:4px solid var(--red);
+  }
+  .nav{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:16px 0;
+  }
+  .brand{
+    display:flex;
+    flex-direction:column;
+    text-decoration:none;
+  }
+  .brand .name{
+    font-family:'Anton', sans-serif;
+    font-size:1.4rem;
+    letter-spacing:0.02em;
+    color:var(--paper);
+  }
+  .brand .since{
+    font-size:0.65rem;
+    color:var(--mustard);
+    letter-spacing:0.08em;
+    margin-top:2px;
+  }
+  .nav-links{
+    display:flex;
+    gap:26px;
+    list-style:none;
+    margin:0; padding:0;
+    font-size:0.78rem;
+  }
+  .nav-links a{
+    text-decoration:none;
+    color:var(--paper);
+    opacity:0.75;
+  }
+  .nav-links a:hover{opacity:1; color:var(--mustard);}
+  .nav-links a::before{content:"> "; color:var(--red);}
+  .btn{
+    font-family:'Space Mono', monospace;
+    font-weight:700;
+    cursor:pointer;
+    border:none;
+    text-decoration:none;
+    display:inline-block;
+    text-transform:uppercase;
+    letter-spacing:0.04em;
+  }
+  .btn-primary{
+    background:var(--red);
+    color:var(--paper);
+    padding:12px 22px;
+    font-size:0.78rem;
+    clip-path:polygon(6px 0,100% 0,100% calc(100% - 6px),calc(100% - 6px) 100%,0 100%,0 6px);
+  }
+  .btn-primary:hover{background:var(--red-dark);}
+  .btn-ghost{
+    color:var(--paper);
+    border-bottom:2px solid var(--mustard);
+    font-size:0.78rem;
+    padding-bottom:2px;
+  }
+  .nav-toggle{display:none; background:none; border:none; color:var(--paper); font-family:'Anton'; font-size:1.3rem;}
+
+  /* hero */
+  .hero{padding:70px 0 80px;}
+  .hero-grid{
+    display:grid;
+    grid-template-columns:1.05fr 0.95fr;
+    gap:50px;
+    align-items:center;
+  }
+  .tag-strip{
+    display:inline-block;
+    background:var(--mustard);
+    color:var(--black);
+    font-size:0.68rem;
+    font-weight:700;
+    letter-spacing:0.06em;
+    padding:4px 10px;
+    margin-bottom:18px;
+  }
+  .hero h1{
+    font-size:clamp(2.6rem, 6vw, 4.2rem);
+    line-height:0.98;
+  }
+  .hero h1 .red{color:var(--red);}
+  .hero p.lead{
+    margin-top:22px;
+    max-width:44ch;
+    color:rgba(239,233,219,0.72);
+    font-size:0.92rem;
+  }
+  .hero-actions{
+    margin-top:30px;
+    display:flex;
+    align-items:center;
+    gap:22px;
+    flex-wrap:wrap;
+  }
+  .crt{
+    aspect-ratio:4/5;
+    background:#000;
+    border:10px solid #1c1a17;
+    border-radius:10px;
+    position:relative;
+    overflow:hidden;
+    box-shadow:0 0 0 2px rgba(239,233,219,0.08);
+  }
+  .crt::after{
+    content:"";
+    position:absolute; inset:0;
+    background:repeating-linear-gradient(180deg, rgba(0,0,0,0.35) 0 2px, transparent 2px 4px);
+    pointer-events:none;
+  }
+  .crt .placeholder{
+    position:absolute; inset:0;
+    border:none;
+    color:rgba(239,233,219,0.45);
+  }
+
+  /* ambiente */
+  .ambiente{
+    padding:90px 0;
+    border-top:1px solid var(--line);
+    border-bottom:1px solid var(--line);
+  }
+  .ambiente-head{
+    max-width:56ch;
+  }
+  .ambiente h2{
+    font-size:clamp(1.9rem, 3.6vw, 2.6rem);
+  }
+  .ambiente h2 .red{color:var(--red);}
+  .ambiente p{
+    margin-top:16px;
+    color:rgba(239,233,219,0.7);
+    font-size:0.92rem;
+  }
+  .polaroids{
+    margin-top:56px;
+    display:flex;
+    gap:34px;
+    flex-wrap:wrap;
+    justify-content:center;
+    align-items:flex-start;
+  }
+  .polaroid{
+    background:var(--paper);
+    padding:12px 12px 18px;
+    width:190px;
+    box-shadow:0 10px 20px rgba(0,0,0,0.35);
+  }
+  .polaroid .placeholder{
+    aspect-ratio:1/1;
+    color:rgba(13,13,12,0.5);
+    border-color:rgba(13,13,12,0.3);
+    background:repeating-linear-gradient(135deg, rgba(13,13,12,0.03) 0 12px, rgba(13,13,12,0.07) 12px 24px);
+  }
+  .polaroid .cap{
+    margin-top:10px;
+    text-align:center;
+    color:var(--black);
+    font-size:0.7rem;
+    letter-spacing:0.04em;
+  }
+
+  /* serviços - scoreboard */
+  .servicos{
+    padding:90px 0;
+    background:var(--black-soft);
+  }
+  .score-head{
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-end;
+    flex-wrap:wrap;
+    gap:16px;
+  }
+  .servicos h2{font-size:clamp(1.9rem, 3.6vw, 2.6rem);}
+  .servicos h2 .red{color:var(--red);}
+  .score-head span{
+    font-size:0.72rem;
+    color:var(--mustard);
+    letter-spacing:0.05em;
+  }
+  .score-table{
+    margin-top:40px;
+    border-top:2px solid var(--paper);
+  }
+  .score-row{
+    display:flex;
+    align-items:baseline;
+    gap:14px;
+    padding:16px 0;
+    border-bottom:1px dashed var(--line);
+  }
+  .score-row .num{
+    font-family:'Anton', sans-serif;
+    color:var(--red);
+    font-size:1.1rem;
+    width:36px;
+    flex-shrink:0;
+  }
+  .score-row .desc{flex:1;}
+  .score-row .desc .name{font-size:0.95rem; letter-spacing:0.02em;}
+  .score-row .desc .sub{
+    display:block;
+    font-size:0.72rem;
+    color:rgba(239,233,219,0.5);
+    margin-top:3px;
+  }
+  .score-row .price{
+    font-family:'Anton', sans-serif;
+    color:var(--mustard);
+    font-size:1.15rem;
+    white-space:nowrap;
+  }
+
+  /* depoimento */
+  .depoimento{
+    padding:80px 0;
+    text-align:center;
+  }
+  .bubble{
+    max-width:620px;
+    margin:0 auto;
+    background:var(--paper);
+    color:var(--black);
+    padding:32px 36px;
+    position:relative;
+    font-size:1.05rem;
+    line-height:1.5;
+  }
+  .bubble::after{
+    content:"";
+    position:absolute;
+    bottom:-18px; left:60px;
+    border-width:18px 14px 0 0;
+    border-style:solid;
+    border-color:var(--paper) transparent transparent transparent;
+  }
+  .bubble p{margin:0; font-family:'Space Mono', monospace;}
+  .bubble .autor{
+    margin-top:26px;
+    font-size:0.75rem;
+    color:var(--red-dark);
+    letter-spacing:0.05em;
+  }
+
+  /* local - ticket stub */
+  .local{
+    padding:90px 0;
+    border-top:1px solid var(--line);
+  }
+  .local h2{font-size:clamp(1.9rem, 3.6vw, 2.6rem);}
+  .local h2 .red{color:var(--red);}
+  .local-grid{
+    margin-top:40px;
+    display:grid;
+    grid-template-columns:1fr 1.1fr;
+    gap:40px;
+    align-items:stretch;
+  }
+  .ticket{
+    background:var(--paper);
+    color:var(--black);
+    padding:28px;
+    position:relative;
+    background-image:
+      radial-gradient(circle at 0 50%, var(--black) 8px, transparent 9px),
+      radial-gradient(circle at 100% 50%, var(--black) 8px, transparent 9px);
+  }
+  .ticket .row{
+    display:flex;
+    justify-content:space-between;
+    padding:9px 0;
+    border-bottom:1px dashed rgba(13,13,12,0.25);
+    font-size:0.85rem;
+  }
+  .ticket .row:first-child{padding-top:0;}
+  .ticket .addr{
+    margin-top:16px;
+    font-size:0.85rem;
+  }
+  .ticket .addr p{margin:4px 0;}
+  .ticket .btn-primary{margin-top:18px;}
+  .mapa{aspect-ratio:auto; height:100%; min-height:220px;}
+
+  /* footer */
+  footer{
+    padding:40px 0;
+    border-top:4px solid var(--red);
+    text-align:center;
+  }
+  footer .name{
+    font-family:'Anton', sans-serif;
+    font-size:1.1rem;
+  }
+  footer .line{
+    margin-top:8px;
+    font-size:0.72rem;
+    color:rgba(239,233,219,0.5);
+  }
+
+  @media (max-width: 860px){
+    .nav-links{
+      position:absolute; top:100%; left:0; right:0;
+      background:var(--black);
+      flex-direction:column; gap:0;
+      border-bottom:4px solid var(--red);
+      max-height:0; overflow:hidden;
+      transition:max-height 0.25s ease;
+    }
+    .nav-links.open{max-height:300px;}
+    .nav-links a{display:block; padding:14px 26px; border-bottom:1px solid var(--line);}
+    .nav .btn-primary{display:none;}
+    .nav-toggle{display:block;}
+    .hero-grid, .local-grid{grid-template-columns:1fr; gap:30px;}
+    .hero .crt{order:-1; aspect-ratio:16/9;}
+    .polaroids{gap:20px;}
+    .polaroid{width:42%;}
+    .hero, .ambiente, .servicos, .depoimento, .local{padding:56px 0;}
+  }
+
+  @media (prefers-reduced-motion: reduce){html{scroll-behavior:auto;}}
+
+.crt img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+}
+
+.polaroid img{
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+}
+
+
+.polaroid:nth-child(1){ transform: rotate(-3deg); }
+.polaroid:nth-child(2){ transform: rotate(2deg); margin-top:18px; }
+.polaroid:nth-child(3){ transform: rotate(-2deg); }
+
+.mapa iframe{
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+.mapa::after{
+  display: none;
+}
+
+@media (max-width: 860px){
+  .polaroid img{
+    height:auto;
+    aspect-ratio:1/1;
+    object-fit:cover;
+  }
+}
+
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap nav">
+    <a href="#" class="brand">
+      <span class="name">💈✂️ Barbearia do Barba ✂️💈</span>
+      <span class="since">DRACENA-SP · DESDE 19XX</span>
+    </a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#ambiente">Ambiente</a></li>
+      <li><a href="#servicos">Serviços</a></li>
+      <li><a href="#local">Local</a></li>
+    </ul>
+    <a href="#local" class="btn btn-primary">Agendar</a>
+    <button class="nav-toggle" id="navToggle" type="button" aria-label="Abrir menu" aria-controls="navLinks" aria-expanded="false">☰</button>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <span class="tag-strip">Corte com trilha sonora própria</span>
+      <h1>Mais que corte.<br>Estilo, História <span class="red">e Personalidade</span>.</h1>
+      <p class="lead">Fliperama ligado, resenha rolando e parede cheia de ídolos. A barbearia que também é point — senta, espera a vez e já vira assunto.</p>
+      <div class="hero-actions">
+        <a href="#local" class="btn btn-primary">Agendar horário</a>
+        <a href="#ambiente" class="btn-ghost">Ver o ambiente</a>
+      </div>
+    </div>
+    <div class="crt">
+      <img src="img/banner-barba.png" alt="Barba">
+</div>
+  </div>
+</section>
+
+<section class="ambiente dots" id="ambiente">
+  <div class="wrap">
+    <div class="ambiente-head">
+      <h2>O ambiente é parte <span class="red">do corte</span></h2>
+      <p>Não é só sentar na cadeira. É o fliperama ligado enquanto espera, a parede de ídolos pra puxar assunto e a resenha que faz parte do ambiente. Aqui o cliente senta, relaxa e sai diferente — não só no cabelo.</p>
+    </div>
+   <div class="polaroids">
+
+  <div class="polaroid">
+    <img src="img/fliperama.png" alt="Fliperama da Barbearia">
+    <div class="cap">O FLIPERAMA</div>
+  </div>
+
+  <div class="polaroid">
+    <img src="img/balcao.png" alt="Balcão da Barbearia">
+    <div class="cap">O BALCÃO</div>
+  </div>
+
+  <div class="polaroid">
+    <img src="img/pessoas.png" alt="Galera na Barbearia">
+    <div class="cap">A RESENHA</div>
+  </div>
+</div>
+  </div>
+</section>
+
+<section class="servicos" id="servicos">
+  <div class="wrap">
+    <div class="score-head">
+      <h2>Tabela de <span class="red">Valores</span></h2>
+
+    </div>
+    <div class="score-table">
+      <div class="score-row">
+        <span class="num">01</span>
+        <span class="desc"><span class="name">Corte clássico</span><span class="sub">Tesoura e máquina, acabamento na régua</span></span>
+        <span class="price">R$ 45</span>
+      </div>
+      <div class="score-row">
+        <span class="num">02</span>
+        <span class="desc"><span class="name">Barba completa</span><span class="sub">Toalha quente e navalha</span></span>
+        <span class="price">R$ 35</span>
+      </div>
+      <div class="score-row">
+        <span class="num">03</span>
+        <span class="desc"><span class="name">Corte + barba</span><span class="sub">O combo mais pedido da casa</span></span>
+        <span class="price">R$ 70</span>
+      </div>
+      <div class="score-row">
+        <span class="num">04</span>
+        <span class="desc"><span class="name">Corte infantil</span><span class="sub">Até 12 anos — com direito a jogar</span></span>
+        <span class="price">R$ 35</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="local dots-dark" id="local">
+  <div class="wrap">
+    <h2>Onde <span class="red">encontrar</span></h2>
+    <div class="local-grid">
+      <div class="ticket">
+        <div class="row"><span>Segunda a sexta</span><span>9h – 19h</span></div>
+        <div class="row"><span>Sábado</span><span>9h – 17h</span></div>
+        <div class="row"><span>Domingo</span><span>Fechado</span></div>
+        <div class="addr">
+          <p>Av. Rui Barbosa, 1519 - Centro, Dracena - SP, 17900-000</p>
+          <p>(18) 98182-8464</p>
+        </div>
+        <a href="https://wa.me/5518981828464?text=Ol%C3%A1%2C%20vim%20pelo%20site%20e%20gostaria%20de%20agendar%20um%20hor%C3%A1rio." class="btn btn-primary" target="_blank" rel="noopener noreferrer">Chamar no WhatsApp</a>
+      </div>
+      <div class="crt mapa">
+  <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3712.6147371205548!2d-51.53910252478744!3d-21.483628288563644!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94913b4957704805%3A0x127af50882730c5e!2sBarbearia%20do%20Barba!5e0!3m2!1spt-BR!2sbr!4v1788532184028!5m2!1spt-BR!2sbr" title="Localização da Barbearia do Barba no Google Maps" allowfullscreen loading="lazy" referrerpolicy="strict-origin-when-cross-origin"></iframe>
+</div>
+      </div>
+    </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="name">Barbearia do Barba</div>
+    <div class="line">© 2026 — Dracena-SP · corte, papo e trilha sonora</div>
+  </div>
+</footer>
+
+<script>
+  const navToggle = document.getElementById('navToggle');
+  const navLinks = document.getElementById('navLinks');
+  navToggle.addEventListener('click', () => {
+    const isOpen = navLinks.classList.toggle('open');
+    navToggle.setAttribute('aria-expanded', String(isOpen));
+  });
+
+  navLinks.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+    navLinks.classList.remove('open');
+    navToggle.setAttribute('aria-expanded', 'false');
+  }));
+</script>
+
+</body>
+</html>
